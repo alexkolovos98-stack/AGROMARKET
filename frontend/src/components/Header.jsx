@@ -120,7 +120,7 @@ const Header = ({ cartCount = 0 }) => {
       {isMobileMenuOpen && (
         <div className="md:hidden bg-white border-b">
           <div className="px-4 py-2 space-y-2">
-            {['Σύνδεση', 'Αγαπημένα', 'Προσφορές', 'Σπόροι', 'Μηχανήματα', 'Άρδευση', 'Λιπάσματα'].map((item) => (
+            {['Σύνδεση', 'Αγαπημένα', 'Προσφορές', 'Σπόροι', 'Άρδευση', 'Λιπάσματα', 'Θερμοκήπια'].map((item) => (
               <a key={item} href="#" className="block px-3 py-2 text-gray-700 hover:bg-[#e8f5e9] rounded-lg">
                 {item}
               </a>
