@@ -62,11 +62,10 @@ export const categories = [
 export const topCategories = [
   { id: 1, name: "Προσφορές", icon: "Tag", color: "#e74c3c" },
   { id: 2, name: "Σπόροι", icon: "Sprout", color: "#27ae60" },
-  { id: 3, name: "Τρακτέρ", icon: "Tractor", color: "#3498db" },
-  { id: 4, name: "Άρδευση", icon: "Droplets", color: "#00bcd4" },
-  { id: 5, name: "Θερμοκήπια", icon: "Home", color: "#9b59b6" },
-  { id: 6, name: "Μεταχειρισμένα", icon: "Recycle", color: "#f39c12" },
-  { id: 7, name: "Ζωοτροφές", icon: "Wheat", color: "#e67e22" }
+  { id: 3, name: "Άρδευση", icon: "Droplets", color: "#00bcd4" },
+  { id: 4, name: "Θερμοκήπια", icon: "Home", color: "#9b59b6" },
+  { id: 5, name: "Ζωοτροφές", icon: "Wheat", color: "#e67e22" },
+  { id: 6, name: "Λιπάσματα", icon: "FlaskConical", color: "#3498db" }
 ];
 
 export const featuredProducts = [
