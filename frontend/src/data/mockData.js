@@ -19,14 +19,6 @@ export const categories = [
   },
   {
     id: 3,
-    name: "Γεωργικά Μηχανήματα",
-    nameEn: "Agricultural Machinery",
-    icon: "Tractor",
-    image: "https://images.unsplash.com/photo-1614977645540-7abd88ba8e56?w=400",
-    count: 5670
-  },
-  {
-    id: 4,
     name: "Συστήματα Άρδευσης",
     nameEn: "Irrigation Systems",
     icon: "Droplets",
@@ -34,7 +26,7 @@ export const categories = [
     count: 4230
   },
   {
-    id: 5,
+    id: 4,
     name: "Ζωοτροφές",
     nameEn: "Animal Feed",
     icon: "Wheat",
@@ -42,7 +34,7 @@ export const categories = [
     count: 6780
   },
   {
-    id: 6,
+    id: 5,
     name: "Θερμοκήπια",
     nameEn: "Greenhouses",
     icon: "Home",
@@ -50,7 +42,7 @@ export const categories = [
     count: 2340
   },
   {
-    id: 7,
+    id: 6,
     name: "Φυτοφάρμακα",
     nameEn: "Pesticides",
     icon: "Bug",
@@ -58,7 +50,7 @@ export const categories = [
     count: 3560
   },
   {
-    id: 8,
+    id: 7,
     name: "Εργαλεία Κήπου",
     nameEn: "Garden Tools",
     icon: "Shovel",
