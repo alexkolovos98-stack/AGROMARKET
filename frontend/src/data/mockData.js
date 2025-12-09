@@ -71,19 +71,6 @@ export const topCategories = [
 export const featuredProducts = [
   {
     id: 1,
-    name: "Τρακτέρ John Deere 5075E 75HP",
-    image: "https://images.unsplash.com/photo-1614977645540-7abd88ba8e56?w=400",
-    price: 28500,
-    originalPrice: 32000,
-    rating: 4.8,
-    reviews: 127,
-    shop: "ΑγροΤεχνική ΕΠΕ",
-    category: "Γεωργικά Μηχανήματα",
-    isNew: true,
-    discount: 11
-  },
-  {
-    id: 2,
     name: "Σύστημα Στάγδην Άρδευσης 1000m²",
     image: "https://images.unsplash.com/photo-1692369584496-3216a88f94c1?w=400",
     price: 450,
@@ -96,7 +83,7 @@ export const featuredProducts = [
     discount: 13
   },
   {
-    id: 3,
+    id: 2,
     name: "Θερμοκήπιο Tunnel 6x30m",
     image: "https://images.unsplash.com/photo-1524486361537-8ad15938e1a3?w=400",
     price: 2800,
@@ -109,7 +96,7 @@ export const featuredProducts = [
     discount: 12
   },
   {
-    id: 4,
+    id: 3,
     name: "Λίπασμα NPK 20-20-20 25kg",
     image: "https://images.unsplash.com/photo-1542990253-a781e04c0082?w=400",
     price: 38,
@@ -122,7 +109,7 @@ export const featuredProducts = [
     discount: 16
   },
   {
-    id: 5,
+    id: 4,
     name: "Σπόροι Ντομάτας Belladonna F1",
     image: "https://images.unsplash.com/photo-1563760836797-bf5d5f9d2243?w=400",
     price: 12.50,
@@ -135,7 +122,7 @@ export const featuredProducts = [
     discount: 17
   },
   {
-    id: 6,
+    id: 5,
     name: "Ψεκαστήρας Πλάτης 16L",
     image: "https://images.unsplash.com/photo-1416879595882-3373a0480b5b?w=400",
     price: 65,
@@ -148,7 +135,7 @@ export const featuredProducts = [
     discount: 13
   },
   {
-    id: 7,
+    id: 6,
     name: "Ζωοτροφή Αγελάδων Premium 50kg",
     image: "https://images.unsplash.com/photo-1500595046743-cd271d694d30?w=400",
     price: 28,
@@ -161,17 +148,30 @@ export const featuredProducts = [
     discount: 12
   },
   {
-    id: 8,
-    name: "Φρέζα Μοτοκαλλιεργητή 7HP",
-    image: "https://images.unsplash.com/photo-1594771804886-a933bb2d609b?w=400",
-    price: 890,
-    originalPrice: 1050,
-    rating: 4.8,
-    reviews: 67,
-    shop: "ΑγροΜηχανική",
-    category: "Γεωργικά Μηχανήματα",
+    id: 7,
+    name: "Σετ Εργαλείων Κήπου 12 τεμ.",
+    image: "https://images.unsplash.com/photo-1617576683096-00fc8eecb3af?w=400",
+    price: 45,
+    originalPrice: 55,
+    rating: 4.7,
+    reviews: 156,
+    shop: "GardenTools",
+    category: "Εργαλεία Κήπου",
     isNew: true,
-    discount: 15
+    discount: 18
+  },
+  {
+    id: 8,
+    name: "Αντλία Νερού Υποβρύχια 1HP",
+    image: "https://images.unsplash.com/photo-1692369584496-3216a88f94c1?w=400",
+    price: 185,
+    originalPrice: 220,
+    rating: 4.8,
+    reviews: 89,
+    shop: "Hydro Systems",
+    category: "Συστήματα Άρδευσης",
+    isNew: false,
+    discount: 16
   }
 ];
 
