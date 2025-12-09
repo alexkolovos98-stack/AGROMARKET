@@ -1,15 +1,14 @@
 import React from 'react';
-import { Tag, Sprout, Tractor, Droplets, Home, Recycle, Wheat } from 'lucide-react';
+import { Tag, Sprout, Droplets, Home, Wheat, FlaskConical } from 'lucide-react';
 import { topCategories } from '../data/mockData';
 
 const iconMap = {
   Tag: Tag,
   Sprout: Sprout,
-  Tractor: Tractor,
   Droplets: Droplets,
   Home: Home,
-  Recycle: Recycle,
-  Wheat: Wheat
+  Wheat: Wheat,
+  FlaskConical: FlaskConical
 };
 
 const TopCategories = () => {
