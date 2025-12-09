@@ -1,11 +1,10 @@
 import React from 'react';
-import { Sprout, FlaskConical, Tractor, Droplets, Wheat, Home, Bug, Shovel } from 'lucide-react';
+import { Sprout, FlaskConical, Droplets, Wheat, Home, Bug, Shovel } from 'lucide-react';
 import { categories } from '../data/mockData';
 
 const iconMap = {
   Sprout: Sprout,
   FlaskConical: FlaskConical,
-  Tractor: Tractor,
   Droplets: Droplets,
   Wheat: Wheat,
   Home: Home,
