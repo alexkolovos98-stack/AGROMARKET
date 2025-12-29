@@ -1,6 +1,7 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import { Tag, Sprout, Droplets, Home, Wheat, FlaskConical } from 'lucide-react';
-import { topCategories } from '../data/mockData';
+import { topCategories, categories } from '../data/mockData';
 
 const iconMap = {
   Tag: Tag,
@@ -11,6 +12,16 @@ const iconMap = {
   FlaskConical: FlaskConical
 };
 
+// Map top category names to category IDs
+const categoryIdMap = {
+  'Προσφορές': null, // Special case - no category page
+  'Σπόροι': 1,
+  'Άρδευση': 3,
+  'Θερμοκήπια': 5,
+  'Ζωοτροφές': 4,
+  'Λιπάσματα': 2
+};
+
 const TopCategories = () => {
   return (
     <div className="bg-white py-4 border-b">
@@ -18,12 +29,11 @@ const TopCategories = () => {
         <div className="flex items-center justify-center gap-3 overflow-x-auto pb-2">
           {topCategories.map((cat) => {
             const IconComponent = iconMap[cat.icon];
-            return (
-              <a
-                key={cat.id}
-                href="#"
-                className="flex flex-col items-center gap-2 px-4 py-3 rounded-xl hover:bg-gray-50 transition-all group min-w-[80px] hover:shadow-md"
-              >
+            const categoryId = categoryIdMap[cat.name];
+            const isLink = categoryId !== null;
+            
+            const content = (
+              <>
                 <div 
                   className="w-14 h-14 rounded-2xl flex items-center justify-center transition-transform group-hover:scale-110"
                   style={{ backgroundColor: `${cat.color}15` }}
@@ -33,6 +43,28 @@ const TopCategories = () => {
                 <span className="text-xs font-medium text-gray-700 text-center whitespace-nowrap">
                   {cat.name}
                 </span>
+              </>
+            );
+            
+            if (isLink) {
+              return (
+                <Link
+                  key={cat.id}
+                  to={`/category/${categoryId}`}
+                  className="flex flex-col items-center gap-2 px-4 py-3 rounded-xl hover:bg-gray-50 transition-all group min-w-[80px] hover:shadow-md"
+                >
+                  {content}
+                </Link>
+              );
+            }
+            
+            return (
+              <a
+                key={cat.id}
+                href="#deals"
+                className="flex flex-col items-center gap-2 px-4 py-3 rounded-xl hover:bg-gray-50 transition-all group min-w-[80px] hover:shadow-md"
+              >
+                {content}
               </a>
             );
           })}
