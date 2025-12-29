@@ -109,18 +109,23 @@ const Header = ({ cartCount = 0 }) => {
                 <ChevronDown className="w-3 h-3" />
               </a>
             </li>
-            {['Προσφορές', 'Σπόροι', 'Άρδευση', 'Λιπάσματα', 'Θερμοκήπια', 'Ζωοτροφές', 'Εργαλεία'].map((item) => (
-              <li key={item}>
-                <a 
-                  href="#" 
-                  className={`px-3 py-2 text-sm font-medium rounded-lg transition-colors ${
-                    item === 'Προσφορές' 
-                      ? 'text-red-600 hover:bg-red-50' 
-                      : 'text-gray-700 hover:bg-[#e8f5e9] hover:text-[#2d7a3a]'
-                  }`}
-                >
-                  {item}
-                </a>
+            {navCategories.map((item) => (
+              <li key={item.name}>
+                {item.isSpecial ? (
+                  <a 
+                    href={item.path}
+                    className="px-3 py-2 text-sm font-medium rounded-lg transition-colors text-red-600 hover:bg-red-50"
+                  >
+                    {item.name}
+                  </a>
+                ) : (
+                  <Link 
+                    to={item.path}
+                    className="px-3 py-2 text-sm font-medium rounded-lg transition-colors text-gray-700 hover:bg-[#e8f5e9] hover:text-[#2d7a3a] block"
+                  >
+                    {item.name}
+                  </Link>
+                )}
               </li>
             ))}
           </ul>
@@ -131,10 +136,18 @@ const Header = ({ cartCount = 0 }) => {
       {isMobileMenuOpen && (
         <div className="md:hidden bg-white border-b">
           <div className="px-4 py-2 space-y-2">
-            {['Σύνδεση', 'Αγαπημένα', 'Προσφορές', 'Σπόροι', 'Άρδευση', 'Λιπάσματα', 'Θερμοκήπια'].map((item) => (
-              <a key={item} href="#" className="block px-3 py-2 text-gray-700 hover:bg-[#e8f5e9] rounded-lg">
-                {item}
-              </a>
+            <a href="#" className="block px-3 py-2 text-gray-700 hover:bg-[#e8f5e9] rounded-lg">Σύνδεση</a>
+            <a href="#" className="block px-3 py-2 text-gray-700 hover:bg-[#e8f5e9] rounded-lg">Αγαπημένα</a>
+            {navCategories.map((item) => (
+              item.isSpecial ? (
+                <a key={item.name} href={item.path} className="block px-3 py-2 text-red-600 hover:bg-red-50 rounded-lg">
+                  {item.name}
+                </a>
+              ) : (
+                <Link key={item.name} to={item.path} className="block px-3 py-2 text-gray-700 hover:bg-[#e8f5e9] rounded-lg">
+                  {item.name}
+                </Link>
+              )
             ))}
           </div>
         </div>
