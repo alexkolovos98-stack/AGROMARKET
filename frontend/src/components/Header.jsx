@@ -1,11 +1,11 @@
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { Search, ShoppingCart, User, Heart, Menu, ChevronDown, MapPin } from 'lucide-react';
 import { Input } from './ui/input';
 import { Button } from './ui/button';
 
 const navCategories = [
-  { name: 'Προσφορές', path: '#deals', isSpecial: true },
+  { name: 'Προσφορές', path: '/deals', isSpecial: true },
   { name: 'Σπόροι', path: '/category/1' },
   { name: 'Άρδευση', path: '/category/3' },
   { name: 'Λιπάσματα', path: '/category/2' },
@@ -16,7 +16,15 @@ const navCategories = [
 
 const Header = ({ cartCount = 0 }) => {
   const [searchQuery, setSearchQuery] = useState('');
-  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState('');
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const navigate = useNavigate();
+
+  const handleSearch = (e) => {
+    e.preventDefault();
+    if (searchQuery.trim()) {
+      navigate(`/search?q=${encodeURIComponent(searchQuery.trim())}`);
+    }
+  };
 
   return (
     <header className="sticky top-0 z-50 bg-white shadow-sm">
@@ -30,8 +38,8 @@ const Header = ({ cartCount = 0 }) => {
             </span>
           </div>
           <div className="flex items-center gap-4">
-            <a href="#" className="hover:underline">Βοήθεια</a>
-            <a href="#" className="hover:underline">Πούλα στο agroplaza</a>
+            <Link to="/help" className="hover:underline">Βοήθεια</Link>
+            <Link to="/sell" className="hover:underline">Πούλα στο agroplaza</Link>
           </div>
         </div>
       </div>
@@ -50,7 +58,7 @@ const Header = ({ cartCount = 0 }) => {
             </Link>
 
             {/* Search Bar */}
-            <div className="flex-1 max-w-2xl">
+            <form onSubmit={handleSearch} className="flex-1 max-w-2xl">
               <div className="relative">
                 <Input
                   type="text"
@@ -60,25 +68,26 @@ const Header = ({ cartCount = 0 }) => {
                   className="w-full pl-4 pr-12 py-2 border-2 border-[#2d7a3a] rounded-full focus:ring-2 focus:ring-[#2d7a3a] focus:border-transparent"
                 />
                 <Button 
+                  type="submit"
                   size="sm" 
                   className="absolute right-1 top-1/2 -translate-y-1/2 bg-[#f5a623] hover:bg-[#e09612] rounded-full p-2"
                 >
                   <Search className="w-4 h-4 text-white" />
                 </Button>
               </div>
-            </div>
+            </form>
 
             {/* Right Actions */}
             <div className="flex items-center gap-3">
-              <button className="hidden md:flex flex-col items-center text-gray-600 hover:text-[#2d7a3a] transition-colors">
+              <Link to="/login" className="hidden md:flex flex-col items-center text-gray-600 hover:text-[#2d7a3a] transition-colors">
                 <User className="w-6 h-6" />
                 <span className="text-xs">Σύνδεση</span>
-              </button>
-              <button className="hidden md:flex flex-col items-center text-gray-600 hover:text-[#2d7a3a] transition-colors">
+              </Link>
+              <Link to="/favorites" className="hidden md:flex flex-col items-center text-gray-600 hover:text-[#2d7a3a] transition-colors">
                 <Heart className="w-6 h-6" />
                 <span className="text-xs">Αγαπημένα</span>
-              </button>
-              <button className="relative flex flex-col items-center text-gray-600 hover:text-[#2d7a3a] transition-colors">
+              </Link>
+              <Link to="/cart" className="relative flex flex-col items-center text-gray-600 hover:text-[#2d7a3a] transition-colors">
                 <ShoppingCart className="w-6 h-6" />
                 <span className="text-xs">Καλάθι</span>
                 {cartCount > 0 && (
@@ -86,7 +95,7 @@ const Header = ({ cartCount = 0 }) => {
                     {cartCount}
                   </span>
                 )}
-              </button>
+              </Link>
               <button 
                 className="md:hidden text-gray-600"
                 onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
@@ -103,29 +112,24 @@ const Header = ({ cartCount = 0 }) => {
         <div className="max-w-7xl mx-auto px-4">
           <ul className="flex items-center gap-1 py-2 overflow-x-auto">
             <li>
-              <a href="#" className="flex items-center gap-1 px-3 py-2 text-sm font-medium text-gray-700 hover:bg-[#e8f5e9] hover:text-[#2d7a3a] rounded-lg transition-colors">
+              <Link to="/shops" className="flex items-center gap-1 px-3 py-2 text-sm font-medium text-gray-700 hover:bg-[#e8f5e9] hover:text-[#2d7a3a] rounded-lg transition-colors">
                 <Menu className="w-4 h-4" />
                 Κατηγορίες
                 <ChevronDown className="w-3 h-3" />
-              </a>
+              </Link>
             </li>
             {navCategories.map((item) => (
               <li key={item.name}>
-                {item.isSpecial ? (
-                  <a 
-                    href={item.path}
-                    className="px-3 py-2 text-sm font-medium rounded-lg transition-colors text-red-600 hover:bg-red-50"
-                  >
-                    {item.name}
-                  </a>
-                ) : (
-                  <Link 
-                    to={item.path}
-                    className="px-3 py-2 text-sm font-medium rounded-lg transition-colors text-gray-700 hover:bg-[#e8f5e9] hover:text-[#2d7a3a] block"
-                  >
-                    {item.name}
-                  </Link>
-                )}
+                <Link 
+                  to={item.path}
+                  className={`px-3 py-2 text-sm font-medium rounded-lg transition-colors block ${
+                    item.isSpecial 
+                      ? 'text-red-600 hover:bg-red-50' 
+                      : 'text-gray-700 hover:bg-[#e8f5e9] hover:text-[#2d7a3a]'
+                  }`}
+                >
+                  {item.name}
+                </Link>
               </li>
             ))}
           </ul>
@@ -136,18 +140,19 @@ const Header = ({ cartCount = 0 }) => {
       {isMobileMenuOpen && (
         <div className="md:hidden bg-white border-b">
           <div className="px-4 py-2 space-y-2">
-            <a href="#" className="block px-3 py-2 text-gray-700 hover:bg-[#e8f5e9] rounded-lg">Σύνδεση</a>
-            <a href="#" className="block px-3 py-2 text-gray-700 hover:bg-[#e8f5e9] rounded-lg">Αγαπημένα</a>
+            <Link to="/login" className="block px-3 py-2 text-gray-700 hover:bg-[#e8f5e9] rounded-lg">Σύνδεση</Link>
+            <Link to="/favorites" className="block px-3 py-2 text-gray-700 hover:bg-[#e8f5e9] rounded-lg">Αγαπημένα</Link>
+            <Link to="/cart" className="block px-3 py-2 text-gray-700 hover:bg-[#e8f5e9] rounded-lg">Καλάθι</Link>
             {navCategories.map((item) => (
-              item.isSpecial ? (
-                <a key={item.name} href={item.path} className="block px-3 py-2 text-red-600 hover:bg-red-50 rounded-lg">
-                  {item.name}
-                </a>
-              ) : (
-                <Link key={item.name} to={item.path} className="block px-3 py-2 text-gray-700 hover:bg-[#e8f5e9] rounded-lg">
-                  {item.name}
-                </Link>
-              )
+              <Link 
+                key={item.name} 
+                to={item.path} 
+                className={`block px-3 py-2 rounded-lg ${
+                  item.isSpecial ? 'text-red-600 hover:bg-red-50' : 'text-gray-700 hover:bg-[#e8f5e9]'
+                }`}
+              >
+                {item.name}
+              </Link>
             ))}
           </div>
         </div>
