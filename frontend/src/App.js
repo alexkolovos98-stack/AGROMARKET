@@ -13,6 +13,16 @@ import ShopsSection from './components/ShopsSection';
 import ManufacturersSection from './components/ManufacturersSection';
 import Footer from './components/Footer';
 import CategoryPage from './pages/CategoryPage';
+import ProductPage from './pages/ProductPage';
+import CartPage from './pages/CartPage';
+import FavoritesPage from './pages/FavoritesPage';
+import LoginPage from './pages/LoginPage';
+import ShopPage from './pages/ShopPage';
+import ShopsListPage from './pages/ShopsListPage';
+import DealsPage from './pages/DealsPage';
+import SearchResultsPage from './pages/SearchResultsPage';
+import HelpPage from './pages/HelpPage';
+import SellPage from './pages/SellPage';
 import { toast } from 'sonner';
 
 const HomePage = () => {
