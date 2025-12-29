@@ -3,14 +3,14 @@ import { MapPin, Phone, Mail, Facebook, Instagram, Youtube, CreditCard, Truck, S
 
 const Footer = () => {
   const footerLinks = {
-    "Αγορά μέσω AgroMarket": [
+    "Αγορά μέσω agroplaza": [
       "Πλεονεκτήματα",
       "Ασφάλεια Αγορών",
       "Πολιτική Επιστροφών",
       "Τρόποι Πληρωμής"
     ],
     "Συνεργάτες": [
-      "Πούλα στο AgroMarket",
+      "Πούλα στο agroplaza",
       "Διαφήμιση",
       "Για Καταστήματα"
     ],
