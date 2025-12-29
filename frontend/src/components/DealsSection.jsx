@@ -1,11 +1,12 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import { Clock, ArrowRight } from 'lucide-react';
 import { Badge } from './ui/badge';
 import { deals } from '../data/mockData';
 
 const DealsSection = () => {
   return (
-    <section className="py-8">
+    <section className="py-8" id="deals">
       <div className="max-w-7xl mx-auto px-4">
         {/* Section Header */}
         <div className="flex items-center justify-between mb-6">
@@ -18,21 +19,21 @@ const DealsSection = () => {
               <p className="text-sm text-gray-500">Μη χάσεις τις καλύτερες τιμές!</p>
             </div>
           </div>
-          <a 
-            href="#" 
+          <Link 
+            to="/deals" 
             className="flex items-center gap-1 text-sm font-medium text-red-500 hover:text-red-600 transition-colors"
           >
             Δες όλες
             <ArrowRight className="w-4 h-4" />
-          </a>
+          </Link>
         </div>
 
         {/* Deals Grid */}
         <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
           {deals.map((deal) => (
-            <a
+            <Link
               key={deal.id}
-              href="#"
+              to="/deals"
               className="group bg-white rounded-2xl overflow-hidden shadow-sm hover:shadow-xl transition-all duration-300 border border-gray-100"
             >
               {/* Image */}
@@ -67,7 +68,7 @@ const DealsSection = () => {
                   <span>Λήγει σε {deal.endsIn}</span>
                 </div>
               </div>
-            </a>
+            </Link>
           ))}
         </div>
       </div>
