@@ -34,8 +34,8 @@ const Footer = () => {
           {/* Logo & Info */}
           <div className="col-span-2 md:col-span-1">
             <div className="flex items-center mb-4">
-              <span className="text-2xl font-bold text-[#2d7a3a]">Agro</span>
-              <span className="text-2xl font-bold text-[#f5a623]">Market</span>
+              <span className="text-2xl font-bold text-[#2d7a3a]">agro</span>
+              <span className="text-2xl font-bold text-[#f5a623]">plaza</span>
             </div>
             <p className="text-sm text-gray-400 mb-4">
               Ο κορυφαίος προορισμός για αγροτικά προϊόντα στην Ελλάδα.
