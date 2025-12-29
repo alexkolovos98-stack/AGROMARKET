@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import { Button } from './ui/button';
 import { Truck, Shield, HeadphonesIcon, CreditCard } from 'lucide-react';
 
@@ -29,12 +30,16 @@ const HeroBanner = () => {
               Σύγκρινε τιμές από εκατοντάδες αγροτικά καταστήματα και βρες τις καλύτερες προσφορές σε σπόρους, ζωοτροφές και εφόδια.
             </p>
             <div className="flex flex-col sm:flex-row gap-3 justify-center md:justify-start">
-              <Button className="bg-[#f5a623] hover:bg-[#e09612] text-white px-6 py-3 text-lg">
-                Εξερεύνησε Προϊόντα
-              </Button>
-              <Button variant="outline" className="border-white text-white hover:bg-white/10 px-6 py-3 text-lg">
-                Πούλα στο agroplaza
-              </Button>
+              <Link to="/category/1">
+                <Button className="bg-[#f5a623] hover:bg-[#e09612] text-white px-6 py-3 text-lg w-full sm:w-auto">
+                  Εξερεύνησε Προϊόντα
+                </Button>
+              </Link>
+              <Link to="/sell">
+                <Button variant="outline" className="border-white text-white hover:bg-white/10 px-6 py-3 text-lg w-full sm:w-auto">
+                  Πούλα στο agroplaza
+                </Button>
+              </Link>
             </div>
           </div>
 
@@ -42,23 +47,23 @@ const HeroBanner = () => {
           <div className="flex-1 relative">
             <div className="relative w-full max-w-md mx-auto">
               <img
-                src="https://images.unsplash.com/photo-1614977645540-7abd88ba8e56?w=600"
-                alt="Agricultural machinery"
+                src="https://images.unsplash.com/photo-1524486361537-8ad15938e1a3?w=600"
+                alt="Greenhouse farming"
                 className="w-full rounded-2xl shadow-2xl"
               />
               {/* Floating Badge */}
-              <div className="absolute -bottom-4 -left-4 bg-white rounded-xl p-3 shadow-lg">
+              <Link to="/category/1" className="absolute -bottom-4 -left-4 bg-white rounded-xl p-3 shadow-lg hover:shadow-xl transition-shadow">
                 <div className="text-center">
                   <span className="text-2xl font-bold text-[#2d7a3a]">50K+</span>
                   <p className="text-xs text-gray-600">Προϊόντα</p>
                 </div>
-              </div>
-              <div className="absolute -top-4 -right-4 bg-white rounded-xl p-3 shadow-lg">
+              </Link>
+              <Link to="/shops" className="absolute -top-4 -right-4 bg-white rounded-xl p-3 shadow-lg hover:shadow-xl transition-shadow">
                 <div className="text-center">
                   <span className="text-2xl font-bold text-[#f5a623]">500+</span>
                   <p className="text-xs text-gray-600">Καταστήματα</p>
                 </div>
-              </div>
+              </Link>
             </div>
           </div>
         </div>
@@ -69,15 +74,15 @@ const HeroBanner = () => {
         <div className="max-w-7xl mx-auto px-4 py-4">
           <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
             {[
-              { icon: Truck, text: 'Δωρεάν Μεταφορικά από 50€' },
-              { icon: Shield, text: 'Εγγύηση Ασφάλειας' },
-              { icon: HeadphonesIcon, text: 'Υποστήριξη 24/7' },
-              { icon: CreditCard, text: 'Ασφαλείς Πληρωμές' },
+              { icon: Truck, text: 'Δωρεάν Μεταφορικά από 50€', link: '/help' },
+              { icon: Shield, text: 'Εγγύηση Ασφάλειας', link: '/help' },
+              { icon: HeadphonesIcon, text: 'Υποστήριξη 24/7', link: '/help' },
+              { icon: CreditCard, text: 'Ασφαλείς Πληρωμές', link: '/help' },
             ].map((feature, index) => (
-              <div key={index} className="flex items-center justify-center gap-2 text-white">
+              <Link key={index} to={feature.link} className="flex items-center justify-center gap-2 text-white hover:text-[#f5a623] transition-colors">
                 <feature.icon className="w-5 h-5 text-[#f5a623]" />
                 <span className="text-sm font-medium">{feature.text}</span>
-              </div>
+              </Link>
             ))}
           </div>
         </div>
