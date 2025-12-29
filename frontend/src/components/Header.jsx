@@ -41,13 +41,13 @@ const Header = ({ cartCount = 0 }) => {
         <div className="max-w-7xl mx-auto px-4 py-3">
           <div className="flex items-center justify-between gap-4">
             {/* Logo */}
-            <a href="/" className="flex items-center gap-2 flex-shrink-0">
+            <Link to="/" className="flex items-center gap-2 flex-shrink-0">
               <div className="flex items-center">
                 <span className="text-2xl font-bold text-[#2d7a3a]">agro</span>
                 <span className="text-2xl font-bold text-[#f5a623]">plaza</span>
               </div>
               <span className="text-xs text-gray-500 hidden sm:block">για αγρότες</span>
-            </a>
+            </Link>
 
             {/* Search Bar */}
             <div className="flex-1 max-w-2xl">
