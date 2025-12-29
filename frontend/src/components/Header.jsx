@@ -43,7 +43,7 @@ const Header = ({ cartCount = 0 }) => {
               <div className="relative">
                 <Input
                   type="text"
-                  placeholder="Αναζήτησε σπόρους, μηχανήματα, λιπάσματα..."
+                  placeholder="Αναζήτησε σπόρους, ζωοτροφές, λιπάσματα..."
                   value={searchQuery}
                   onChange={(e) => setSearchQuery(e.target.value)}
                   className="w-full pl-4 pr-12 py-2 border-2 border-[#2d7a3a] rounded-full focus:ring-2 focus:ring-[#2d7a3a] focus:border-transparent"
