@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import { Sprout, FlaskConical, Droplets, Wheat, Home, Bug, Shovel } from 'lucide-react';
 import { categories } from '../data/mockData';
 
@@ -24,9 +25,9 @@ const CategoryGrid = () => {
           {categories.map((category) => {
             const IconComponent = iconMap[category.icon];
             return (
-              <a
+              <Link
                 key={category.id}
-                href="#"
+                to={`/category/${category.id}`}
                 className="group relative bg-white rounded-2xl overflow-hidden shadow-sm hover:shadow-xl transition-all duration-300 aspect-[4/3]"
               >
                 {/* Background Image */}
@@ -51,7 +52,7 @@ const CategoryGrid = () => {
                     </div>
                   </div>
                 </div>
-              </a>
+              </Link>
             );
           })}
         </div>
