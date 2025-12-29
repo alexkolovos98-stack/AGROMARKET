@@ -1,11 +1,22 @@
 import React, { useState } from 'react';
+import { Link } from 'react-router-dom';
 import { Search, ShoppingCart, User, Heart, Menu, ChevronDown, MapPin } from 'lucide-react';
 import { Input } from './ui/input';
 import { Button } from './ui/button';
 
+const navCategories = [
+  { name: 'Προσφορές', path: '#deals', isSpecial: true },
+  { name: 'Σπόροι', path: '/category/1' },
+  { name: 'Άρδευση', path: '/category/3' },
+  { name: 'Λιπάσματα', path: '/category/2' },
+  { name: 'Θερμοκήπια', path: '/category/5' },
+  { name: 'Ζωοτροφές', path: '/category/4' },
+  { name: 'Εργαλεία', path: '/category/7' }
+];
+
 const Header = ({ cartCount = 0 }) => {
   const [searchQuery, setSearchQuery] = useState('');
-  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState('');
 
   return (
     <header className="sticky top-0 z-50 bg-white shadow-sm">
