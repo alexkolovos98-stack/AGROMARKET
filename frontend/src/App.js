@@ -59,6 +59,16 @@ function App() {
         <Routes>
           <Route path="/" element={<HomePage />} />
           <Route path="/category/:categoryId" element={<CategoryPage />} />
+          <Route path="/product/:productId" element={<ProductPage />} />
+          <Route path="/cart" element={<CartPage />} />
+          <Route path="/favorites" element={<FavoritesPage />} />
+          <Route path="/login" element={<LoginPage />} />
+          <Route path="/shop/:shopName" element={<ShopPage />} />
+          <Route path="/shops" element={<ShopsListPage />} />
+          <Route path="/deals" element={<DealsPage />} />
+          <Route path="/search" element={<SearchResultsPage />} />
+          <Route path="/help" element={<HelpPage />} />
+          <Route path="/sell" element={<SellPage />} />
         </Routes>
       </BrowserRouter>
     </div>
