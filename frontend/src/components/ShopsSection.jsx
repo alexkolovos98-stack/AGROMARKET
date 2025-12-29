@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import { Star, MapPin, Package, ChevronRight } from 'lucide-react';
 import { shops } from '../data/mockData';
 
@@ -9,21 +10,21 @@ const ShopsSection = () => {
         {/* Section Header */}
         <div className="flex items-center justify-between mb-6">
           <h2 className="text-xl font-bold text-gray-900">Κορυφαία Αγροτικά Καταστήματα</h2>
-          <a 
-            href="#" 
+          <Link 
+            to="/shops" 
             className="flex items-center gap-1 text-sm font-medium text-[#2d7a3a] hover:text-[#1e5c2a] transition-colors"
           >
             Δες όλα
             <ChevronRight className="w-4 h-4" />
-          </a>
+          </Link>
         </div>
 
         {/* Shops Grid */}
         <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4">
           {shops.map((shop) => (
-            <a
+            <Link
               key={shop.id}
-              href="#"
+              to={`/shop/${encodeURIComponent(shop.name)}`}
               className="bg-white rounded-xl p-4 shadow-sm hover:shadow-lg transition-all border border-gray-100 group"
             >
               {/* Logo Placeholder */}
@@ -55,7 +56,7 @@ const ShopsSection = () => {
                   <span>{shop.location}</span>
                 </div>
               </div>
-            </a>
+            </Link>
           ))}
         </div>
       </div>
