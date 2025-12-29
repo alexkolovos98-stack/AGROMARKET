@@ -26,14 +26,14 @@ const HeroBanner = () => {
               <span className="text-[#f5a623]"> αγροτικά προϊόντα</span>
             </h1>
             <p className="text-lg text-white/80 mb-6 max-w-xl">
-              Σύγκρινε τιμές από εκατοντάδες αγροτικά καταστήματα και βρες τις καλύτερες προσφορές σε σπόρους, μηχανήματα και εφόδια.
+              Σύγκρινε τιμές από εκατοντάδες αγροτικά καταστήματα και βρες τις καλύτερες προσφορές σε σπόρους, ζωοτροφές και εφόδια.
             </p>
             <div className="flex flex-col sm:flex-row gap-3 justify-center md:justify-start">
               <Button className="bg-[#f5a623] hover:bg-[#e09612] text-white px-6 py-3 text-lg">
                 Εξερεύνησε Προϊόντα
               </Button>
               <Button variant="outline" className="border-white text-white hover:bg-white/10 px-6 py-3 text-lg">
-                Πούλα στο AgroMarket
+                Πούλα στο agroplaza
               </Button>
             </div>
           </div>
