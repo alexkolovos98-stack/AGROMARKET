@@ -20,7 +20,7 @@ const Header = ({ cartCount = 0 }) => {
           </div>
           <div className="flex items-center gap-4">
             <a href="#" className="hover:underline">Βοήθεια</a>
-            <a href="#" className="hover:underline">Πούλα στο AgroMarket</a>
+            <a href="#" className="hover:underline">Πούλα στο agroplaza</a>
           </div>
         </div>
       </div>
