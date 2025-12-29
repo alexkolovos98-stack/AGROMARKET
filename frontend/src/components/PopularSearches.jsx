@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import { Search, TrendingUp } from 'lucide-react';
 import { popularSearches } from '../data/mockData';
 
@@ -13,14 +14,14 @@ const PopularSearches = () => {
 
         <div className="flex flex-wrap gap-2">
           {popularSearches.map((search, index) => (
-            <a
+            <Link
               key={index}
-              href="#"
+              to={`/search?q=${encodeURIComponent(search)}`}
               className="flex items-center gap-2 px-4 py-2 bg-white rounded-full border border-gray-200 hover:border-[#2d7a3a] hover:bg-[#e8f5e9] transition-all text-sm text-gray-700 hover:text-[#2d7a3a] group"
             >
               <Search className="w-3.5 h-3.5 text-gray-400 group-hover:text-[#2d7a3a]" />
               {search}
-            </a>
+            </Link>
           ))}
         </div>
       </div>
