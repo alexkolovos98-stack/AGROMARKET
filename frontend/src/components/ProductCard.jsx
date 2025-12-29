@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { Link } from 'react-router-dom';
 import { Star, Heart, ShoppingCart, Store } from 'lucide-react';
 import { Button } from './ui/button';
 import { Badge } from './ui/badge';
@@ -14,7 +15,7 @@ const ProductCard = ({ product, onAddToCart }) => {
       onMouseLeave={() => setIsHovered(false)}
     >
       {/* Image Container */}
-      <div className="relative aspect-square overflow-hidden bg-gray-50">
+      <Link to={`/product/${product.id}`} className="relative aspect-square overflow-hidden bg-gray-50 block">
         <img
           src={product.image}
           alt={product.name}
@@ -35,6 +36,7 @@ const ProductCard = ({ product, onAddToCart }) => {
         <button
           onClick={(e) => {
             e.preventDefault();
+            e.stopPropagation();
             setIsFavorite(!isFavorite);
           }}
           className={`absolute top-3 right-3 w-9 h-9 rounded-full flex items-center justify-center transition-all ${
@@ -49,7 +51,11 @@ const ProductCard = ({ product, onAddToCart }) => {
         {/* Quick Add */}
         <div className={`absolute bottom-3 left-3 right-3 transition-all duration-300 ${isHovered ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-2'}`}>
           <Button 
-            onClick={() => onAddToCart && onAddToCart(product)}
+            onClick={(e) => {
+              e.preventDefault();
+              e.stopPropagation();
+              onAddToCart && onAddToCart(product);
+            }}
             className="w-full bg-[#f5a623] hover:bg-[#e09612] text-white shadow-lg"
             size="sm"
           >
@@ -57,7 +63,7 @@ const ProductCard = ({ product, onAddToCart }) => {
             Προσθήκη
           </Button>
         </div>
-      </div>
+      </Link>
 
       {/* Content */}
       <div className="p-4">
@@ -65,9 +71,11 @@ const ProductCard = ({ product, onAddToCart }) => {
         <p className="text-xs text-gray-500 mb-1">{product.category}</p>
         
         {/* Title */}
-        <h3 className="font-medium text-gray-900 text-sm leading-tight mb-2 line-clamp-2 min-h-[40px] hover:text-[#2d7a3a] cursor-pointer transition-colors">
-          {product.name}
-        </h3>
+        <Link to={`/product/${product.id}`}>
+          <h3 className="font-medium text-gray-900 text-sm leading-tight mb-2 line-clamp-2 min-h-[40px] hover:text-[#2d7a3a] cursor-pointer transition-colors">
+            {product.name}
+          </h3>
+        </Link>
 
         {/* Rating */}
         <div className="flex items-center gap-1 mb-2">
@@ -87,10 +95,10 @@ const ProductCard = ({ product, onAddToCart }) => {
         </div>
 
         {/* Shop */}
-        <div className="flex items-center gap-1 text-xs text-gray-500 mb-3">
+        <Link to={`/shop/${encodeURIComponent(product.shop)}`} className="flex items-center gap-1 text-xs text-gray-500 mb-3 hover:text-[#2d7a3a]">
           <Store className="w-3 h-3" />
           <span className="truncate">{product.shop}</span>
-        </div>
+        </Link>
 
         {/* Price */}
         <div className="flex items-end gap-2">
