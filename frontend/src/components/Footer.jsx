@@ -114,7 +114,7 @@ const Footer = () => {
       {/* Copyright */}
       <div className="bg-gray-950 py-4">
         <div className="max-w-7xl mx-auto px-4 text-center text-sm text-gray-500">
-          <p>© 2025 AgroMarket. Όλα τα δικαιώματα κατοχυρωμένα.</p>
+          <p>© 2025 agroplaza. Όλα τα δικαιώματα κατοχυρωμένα.</p>
         </div>
       </div>
     </footer>
