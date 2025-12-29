@@ -12,6 +12,7 @@ import PopularSearches from './components/PopularSearches';
 import ShopsSection from './components/ShopsSection';
 import ManufacturersSection from './components/ManufacturersSection';
 import Footer from './components/Footer';
+import CategoryPage from './pages/CategoryPage';
 import { toast } from 'sonner';
 
 const HomePage = () => {
@@ -47,6 +48,7 @@ function App() {
       <BrowserRouter>
         <Routes>
           <Route path="/" element={<HomePage />} />
+          <Route path="/category/:categoryId" element={<CategoryPage />} />
         </Routes>
       </BrowserRouter>
     </div>
