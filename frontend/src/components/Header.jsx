@@ -383,28 +383,35 @@ const Header = ({ cartCount = 0 }) => {
       {/* Categories Nav */}
       <nav className="bg-white border-b hidden md:block">
         <div className="max-w-7xl mx-auto px-4">
-          <ul className="flex items-center gap-1 py-2 overflow-x-auto">
-            <li>
-              <Link to="/shops" className="flex items-center gap-1 px-3 py-2 text-sm font-medium text-gray-700 hover:bg-[#e8f5e9] hover:text-[#2d7a3a] rounded-lg transition-colors">
+          <ul className="flex items-center py-2">
+            {/* Categories Dropdown */}
+            <li className="relative group">
+              <button className="flex items-center gap-1 px-3 py-2 text-sm font-medium text-gray-700 hover:bg-[#e8f5e9] hover:text-[#2d7a3a] rounded-lg transition-colors">
                 <Menu className="w-4 h-4" />
                 Κατηγορίες
-                <ChevronDown className="w-3 h-3" />
-              </Link>
+                <ChevronDown className="w-3 h-3 transition-transform group-hover:rotate-180" />
+              </button>
+              
+              {/* Dropdown Menu */}
+              <div className="absolute top-full left-0 mt-1 w-56 bg-white rounded-xl shadow-xl border border-gray-200 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 z-50">
+                <div className="py-2">
+                  {navCategories.map((item) => (
+                    <Link
+                      key={item.name}
+                      to={item.path}
+                      className={`flex items-center gap-3 px-4 py-2.5 text-sm transition-colors ${
+                        item.isSpecial 
+                          ? 'text-red-600 hover:bg-red-50' 
+                          : 'text-gray-700 hover:bg-[#e8f5e9] hover:text-[#2d7a3a]'
+                      }`}
+                    >
+                      {item.isSpecial && <Tag className="w-4 h-4" />}
+                      {item.name}
+                    </Link>
+                  ))}
+                </div>
+              </div>
             </li>
-            {navCategories.map((item) => (
-              <li key={item.name}>
-                <Link 
-                  to={item.path}
-                  className={`px-3 py-2 text-sm font-medium rounded-lg transition-colors block ${
-                    item.isSpecial 
-                      ? 'text-red-600 hover:bg-red-50' 
-                      : 'text-gray-700 hover:bg-[#e8f5e9] hover:text-[#2d7a3a]'
-                  }`}
-                >
-                  {item.name}
-                </Link>
-              </li>
-            ))}
           </ul>
         </div>
       </nav>
