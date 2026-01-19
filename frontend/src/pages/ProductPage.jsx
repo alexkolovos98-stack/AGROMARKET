@@ -1,157 +1,222 @@
-import React, { useState, useMemo } from 'react';
+import React, { useMemo } from 'react';
 import { useParams, Link } from 'react-router-dom';
-import { ChevronRight, Star, Heart, ShoppingCart, Store, Truck, Shield, RotateCcw, Minus, Plus, Check } from 'lucide-react';
+import { ChevronRight, Star, ExternalLink, Store, Truck, Shield, TrendingDown, Check, Clock } from 'lucide-react';
 import { Button } from '../components/ui/button';
 import { Badge } from '../components/ui/badge';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
-import { featuredProducts } from '../data/mockData';
-import { toast } from 'sonner';
+import ProductCard from '../components/ProductCard';
+import { products, shops, featuredProducts } from '../data/mockData';
 
 const ProductPage = () => {
   const { productId } = useParams();
-  const [cartCount, setCartCount] = useState(0);
-  const [quantity, setQuantity] = useState(1);
-  const [isFavorite, setIsFavorite] = useState(false);
 
   const product = useMemo(() => {
-    return featuredProducts.find(p => p.id === parseInt(productId)) || featuredProducts[0];
+    return products.find(p => p.id === parseInt(productId)) || products[0];
   }, [productId]);
 
-  const handleAddToCart = () => {
-    setCartCount(prev => prev + quantity);
-    toast.success(`Προστέθηκαν ${quantity} τεμ. στο καλάθι: ${product.name}`);
-  };
+  // Get shop details for each offer
+  const offersWithShops = useMemo(() => {
+    return product.offers.map(offer => ({
+      ...offer,
+      shop: shops.find(s => s.id === offer.shopId)
+    })).sort((a, b) => a.price - b.price);
+  }, [product]);
 
-  const relatedProducts = featuredProducts.filter(p => p.id !== product.id).slice(0, 4);
+  const lowestPrice = Math.min(...product.offers.map(o => o.price));
+  const highestPrice = Math.max(...product.offers.map(o => o.price));
+  const savings = highestPrice - lowestPrice;
+
+  // Related products (same category, excluding current)
+  const relatedProducts = featuredProducts
+    .filter(p => p.categoryId === product.categoryId && p.id !== product.id)
+    .slice(0, 4);
 
   return (
     <div className="min-h-screen bg-gray-50">
-      <Header cartCount={cartCount} />
+      <Header />
       
       <main className="max-w-7xl mx-auto px-4 py-6">
         {/* Breadcrumb */}
         <nav className="flex items-center gap-2 text-sm text-gray-500 mb-6">
           <Link to="/" className="hover:text-[#2d7a3a]">Αρχική</Link>
           <ChevronRight className="w-4 h-4" />
-          <Link to={`/category/1`} className="hover:text-[#2d7a3a]">{product.category}</Link>
+          <Link to={`/category/${product.categoryId}`} className="hover:text-[#2d7a3a]">{product.category}</Link>
           <ChevronRight className="w-4 h-4" />
-          <span className="text-gray-900 font-medium truncate max-w-[200px]">{product.name}</span>
+          <span className="text-gray-900 font-medium truncate max-w-[300px]">{product.name}</span>
         </nav>
 
         {/* Product Detail */}
-        <div className="bg-white rounded-2xl shadow-sm p-6 mb-8">
-          <div className="grid md:grid-cols-2 gap-8">
-            {/* Image */}
-            <div className="relative">
-              <div className="aspect-square rounded-xl overflow-hidden bg-gray-100">
-                <img src={product.image} alt={product.name} className="w-full h-full object-cover" />
+        <div className="grid lg:grid-cols-3 gap-6 mb-8">
+          {/* Left: Image & Info */}
+          <div className="lg:col-span-2">
+            <div className="bg-white rounded-2xl shadow-sm p-6">
+              <div className="grid md:grid-cols-2 gap-6">
+                {/* Image */}
+                <div className="relative">
+                  <div className="aspect-square rounded-xl overflow-hidden bg-gray-100">
+                    <img src={product.image} alt={product.name} className="w-full h-full object-cover" />
+                  </div>
+                </div>
+
+                {/* Info */}
+                <div>
+                  <p className="text-sm text-gray-500 mb-1">{product.brand}</p>
+                  <h1 className="text-2xl font-bold text-gray-900 mb-3">{product.name}</h1>
+                  
+                  {/* Rating */}
+                  <div className="flex items-center gap-2 mb-4">
+                    <div className="flex">
+                      {[...Array(5)].map((_, i) => (
+                        <Star key={i} className={`w-5 h-5 ${i < Math.floor(product.rating) ? 'text-[#f5a623] fill-current' : 'text-gray-300'}`} />
+                      ))}
+                    </div>
+                    <span className="text-sm text-gray-600">{product.rating} ({product.reviewCount} αξιολογήσεις)</span>
+                  </div>
+
+                  {/* Price Summary */}
+                  <div className="bg-[#e8f5e9] rounded-xl p-4 mb-4">
+                    <div className="flex items-center gap-2 mb-2">
+                      <TrendingDown className="w-5 h-5 text-[#2d7a3a]" />
+                      <span className="text-sm font-medium text-[#2d7a3a]">Καλύτερη τιμή</span>
+                    </div>
+                    <div className="flex items-end gap-2">
+                      <span className="text-3xl font-bold text-[#2d7a3a]">
+                        {lowestPrice.toLocaleString('el-GR', { minimumFractionDigits: 2 })} €
+                      </span>
+                      {savings > 0 && (
+                        <span className="text-sm text-gray-500 mb-1">
+                          (εξοικονόμηση έως {savings.toLocaleString('el-GR', { minimumFractionDigits: 2 })} €)
+                        </span>
+                      )}
+                    </div>
+                    <p className="text-sm text-gray-600 mt-1">
+                      Σύγκριση από {product.offers.length} καταστήματα
+                    </p>
+                  </div>
+
+                  {/* Description */}
+                  <p className="text-gray-600 text-sm mb-4">{product.description}</p>
+
+                  {/* Specs */}
+                  <div className="border-t pt-4">
+                    <h3 className="font-medium text-gray-900 mb-2">Χαρακτηριστικά</h3>
+                    <div className="grid grid-cols-2 gap-2">
+                      {Object.entries(product.specs).map(([key, value]) => (
+                        <div key={key} className="text-sm">
+                          <span className="text-gray-500">{key}:</span>
+                          <span className="text-gray-900 ml-1">{value}</span>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                </div>
               </div>
-              <div className="absolute top-4 left-4 flex flex-col gap-2">
-                {product.isNew && <Badge className="bg-[#2d7a3a] text-white">Νέο</Badge>}
-                {product.discount > 0 && <Badge className="bg-red-500 text-white">-{product.discount}%</Badge>}
-              </div>
-              <button
-                onClick={() => setIsFavorite(!isFavorite)}
-                className={`absolute top-4 right-4 w-12 h-12 rounded-full flex items-center justify-center shadow-lg transition-all ${isFavorite ? 'bg-red-500 text-white' : 'bg-white text-gray-600 hover:text-red-500'}`}
-              >
-                <Heart className={`w-6 h-6 ${isFavorite ? 'fill-current' : ''}`} />
-              </button>
             </div>
+          </div>
 
-            {/* Info */}
-            <div>
-              <p className="text-sm text-gray-500 mb-2">{product.category}</p>
-              <h1 className="text-2xl font-bold text-gray-900 mb-4">{product.name}</h1>
-              
-              {/* Rating */}
-              <div className="flex items-center gap-2 mb-4">
-                <div className="flex">
-                  {[...Array(5)].map((_, i) => (
-                    <Star key={i} className={`w-5 h-5 ${i < Math.floor(product.rating) ? 'text-[#f5a623] fill-current' : 'text-gray-300'}`} />
-                  ))}
-                </div>
-                <span className="text-sm text-gray-600">{product.rating} ({product.reviews} αξιολογήσεις)</span>
+          {/* Right: Price Comparison / Offers */}
+          <div className="lg:col-span-1">
+            <div className="bg-white rounded-2xl shadow-sm p-4 sticky top-24">
+              <h2 className="font-bold text-lg mb-4 flex items-center gap-2">
+                <Store className="w-5 h-5 text-[#2d7a3a]" />
+                Σύγκριση Τιμών
+                <Badge className="bg-[#2d7a3a] text-white">{product.offers.length}</Badge>
+              </h2>
+
+              <div className="space-y-3">
+                {offersWithShops.map((offer, index) => (
+                  <a
+                    key={offer.shopId}
+                    href={offer.url}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className={`block p-4 rounded-xl border-2 transition-all hover:shadow-md ${
+                      index === 0 
+                        ? 'border-[#2d7a3a] bg-[#f0fdf4]' 
+                        : 'border-gray-200 hover:border-[#2d7a3a]'
+                    }`}
+                  >
+                    {/* Shop Info */}
+                    <div className="flex items-start justify-between mb-2">
+                      <div className="flex items-center gap-2">
+                        <div className="w-10 h-10 rounded-lg bg-gradient-to-br from-[#2d7a3a] to-[#4ade80] flex items-center justify-center flex-shrink-0">
+                          <span className="text-white font-bold text-sm">{offer.shop?.name.charAt(0)}</span>
+                        </div>
+                        <div>
+                          <p className="font-medium text-gray-900 text-sm">{offer.shop?.name}</p>
+                          <div className="flex items-center gap-1">
+                            <Star className="w-3 h-3 text-[#f5a623] fill-current" />
+                            <span className="text-xs text-gray-500">{offer.shop?.rating}</span>
+                          </div>
+                        </div>
+                      </div>
+                      {index === 0 && (
+                        <Badge className="bg-[#2d7a3a] text-white text-xs">Καλύτερη τιμή</Badge>
+                      )}
+                    </div>
+
+                    {/* Price */}
+                    <div className="flex items-end gap-2 mb-2">
+                      <span className="text-xl font-bold text-gray-900">
+                        {offer.price.toLocaleString('el-GR', { minimumFractionDigits: 2 })} €
+                      </span>
+                      {offer.originalPrice && (
+                        <span className="text-sm text-gray-400 line-through">
+                          {offer.originalPrice.toLocaleString('el-GR', { minimumFractionDigits: 2 })} €
+                        </span>
+                      )}
+                    </div>
+
+                    {/* Availability & Shipping */}
+                    <div className="flex items-center gap-4 text-xs text-gray-500 mb-3">
+                      <span className={`flex items-center gap-1 ${
+                        offer.availability === 'Διαθέσιμο' ? 'text-green-600' : 'text-orange-500'
+                      }`}>
+                        {offer.availability === 'Διαθέσιμο' ? (
+                          <Check className="w-3 h-3" />
+                        ) : (
+                          <Clock className="w-3 h-3" />
+                        )}
+                        {offer.availability}
+                      </span>
+                      <span className="flex items-center gap-1">
+                        <Truck className="w-3 h-3" />
+                        {offer.shipping}
+                      </span>
+                    </div>
+
+                    {/* CTA */}
+                    <Button className="w-full bg-[#f5a623] hover:bg-[#e09612] text-white">
+                      Μετάβαση στο κατάστημα
+                      <ExternalLink className="w-4 h-4 ml-2" />
+                    </Button>
+                  </a>
+                ))}
               </div>
 
-              {/* Shop */}
-              <Link to={`/shop/${product.shop}`} className="flex items-center gap-2 text-sm text-gray-600 hover:text-[#2d7a3a] mb-6">
-                <Store className="w-4 h-4" />
-                <span>{product.shop}</span>
-              </Link>
-
-              {/* Price */}
-              <div className="bg-gray-50 rounded-xl p-4 mb-6">
-                <div className="flex items-end gap-3 mb-2">
-                  <span className="text-3xl font-bold text-[#2d7a3a]">{product.price.toLocaleString('el-GR', { minimumFractionDigits: 2 })} €</span>
-                  {product.originalPrice > product.price && (
-                    <span className="text-lg text-gray-400 line-through">{product.originalPrice.toLocaleString('el-GR', { minimumFractionDigits: 2 })} €</span>
-                  )}
-                </div>
-                <p className="text-sm text-green-600 flex items-center gap-1">
-                  <Check className="w-4 h-4" /> Διαθέσιμο
+              {/* Info */}
+              <div className="mt-4 p-3 bg-gray-50 rounded-lg">
+                <p className="text-xs text-gray-500 flex items-start gap-2">
+                  <Shield className="w-4 h-4 flex-shrink-0 mt-0.5" />
+                  Η αγορά πραγματοποιείται απευθείας από το κατάστημα. Το agroplaza δεν επεξεργάζεται παραγγελίες ή πληρωμές.
                 </p>
-              </div>
-
-              {/* Quantity */}
-              <div className="flex items-center gap-4 mb-6">
-                <span className="text-sm font-medium">Ποσότητα:</span>
-                <div className="flex items-center border rounded-lg">
-                  <button onClick={() => setQuantity(Math.max(1, quantity - 1))} className="p-2 hover:bg-gray-100">
-                    <Minus className="w-4 h-4" />
-                  </button>
-                  <span className="px-4 py-2 font-medium">{quantity}</span>
-                  <button onClick={() => setQuantity(quantity + 1)} className="p-2 hover:bg-gray-100">
-                    <Plus className="w-4 h-4" />
-                  </button>
-                </div>
-              </div>
-
-              {/* Actions */}
-              <div className="flex gap-3 mb-6">
-                <Button onClick={handleAddToCart} className="flex-1 bg-[#f5a623] hover:bg-[#e09612] text-white py-3">
-                  <ShoppingCart className="w-5 h-5 mr-2" />
-                  Προσθήκη στο καλάθι
-                </Button>
-                <Button variant="outline" className="border-[#2d7a3a] text-[#2d7a3a] hover:bg-[#e8f5e9] py-3">
-                  Αγορά τώρα
-                </Button>
-              </div>
-
-              {/* Features */}
-              <div className="grid grid-cols-3 gap-4 pt-6 border-t">
-                <div className="text-center">
-                  <Truck className="w-6 h-6 mx-auto text-[#2d7a3a] mb-1" />
-                  <p className="text-xs text-gray-600">Δωρεάν αποστολή</p>
-                </div>
-                <div className="text-center">
-                  <Shield className="w-6 h-6 mx-auto text-[#2d7a3a] mb-1" />
-                  <p className="text-xs text-gray-600">Εγγύηση ποιότητας</p>
-                </div>
-                <div className="text-center">
-                  <RotateCcw className="w-6 h-6 mx-auto text-[#2d7a3a] mb-1" />
-                  <p className="text-xs text-gray-600">Εύκολες επιστροφές</p>
-                </div>
               </div>
             </div>
           </div>
         </div>
 
         {/* Related Products */}
-        <section className="mb-8">
-          <h2 className="text-xl font-bold text-gray-900 mb-4">Σχετικά Προϊόντα</h2>
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-            {relatedProducts.map((p) => (
-              <Link key={p.id} to={`/product/${p.id}`} className="bg-white rounded-xl shadow-sm hover:shadow-lg transition-all p-4">
-                <div className="aspect-square rounded-lg overflow-hidden mb-3">
-                  <img src={p.image} alt={p.name} className="w-full h-full object-cover" />
-                </div>
-                <h3 className="text-sm font-medium text-gray-900 line-clamp-2 mb-2">{p.name}</h3>
-                <p className="text-lg font-bold text-[#2d7a3a]">{p.price.toLocaleString('el-GR', { minimumFractionDigits: 2 })} €</p>
-              </Link>
-            ))}
-          </div>
-        </section>
+        {relatedProducts.length > 0 && (
+          <section>
+            <h2 className="text-xl font-bold text-gray-900 mb-4">Παρόμοια Προϊόντα</h2>
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+              {relatedProducts.map((p) => (
+                <ProductCard key={p.id} product={p} />
+              ))}
+            </div>
+          </section>
+        )}
       </main>
 
       <Footer />
