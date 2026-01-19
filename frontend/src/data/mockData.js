@@ -305,3 +305,43 @@ export const manufacturers = [
   { id: 7, name: "Gardena", logo: "GD" },
   { id: 8, name: "Honda", logo: "HD" }
 ];
+
+// Deals - Time-limited offers derived from products with discounts
+export const deals = [
+  {
+    id: 101,
+    name: "Σπόροι Ντομάτας Belladonna F1",
+    image: "https://images.unsplash.com/photo-1563760836797-bf5d5f9d2243?w=400",
+    price: 12.50,
+    originalPrice: 15.00,
+    discount: 17,
+    endsIn: "2 ημέρες"
+  },
+  {
+    id: 102,
+    name: "Σύστημα Στάγδην Άρδευσης 1000m²",
+    image: "https://images.unsplash.com/photo-1692369584496-3216a88f94c1?w=400",
+    price: 450.00,
+    originalPrice: 520.00,
+    discount: 13,
+    endsIn: "5 ημέρες"
+  },
+  {
+    id: 103,
+    name: "Θερμοκήπιο Tunnel 6x30m",
+    image: "https://images.unsplash.com/photo-1524486361537-8ad15938e1a3?w=400",
+    price: 2800.00,
+    originalPrice: 3200.00,
+    discount: 12,
+    endsIn: "3 ημέρες"
+  },
+  {
+    id: 104,
+    name: "Λίπασμα NPK 20-20-20 25kg",
+    image: "https://images.unsplash.com/photo-1542990253-a781e04c0082?w=400",
+    price: 38.00,
+    originalPrice: 45.00,
+    discount: 16,
+    endsIn: "1 ημέρα"
+  }
+];
