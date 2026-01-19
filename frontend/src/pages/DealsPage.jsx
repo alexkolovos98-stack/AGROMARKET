@@ -12,7 +12,7 @@ const DealsPage = () => {
 
   return (
     <div className="min-h-screen bg-gray-50">
-      <Header cartCount={cartCount} />
+      <Header />
       
       <main className="max-w-7xl mx-auto px-4 py-6">
         {/* Breadcrumb */}
