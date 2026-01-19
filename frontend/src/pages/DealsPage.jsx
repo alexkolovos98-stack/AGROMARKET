@@ -1,23 +1,14 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { Link } from 'react-router-dom';
 import { ChevronRight, Clock } from 'lucide-react';
 import { Badge } from '../components/ui/badge';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
-import { deals, featuredProducts } from '../data/mockData';
-import { toast } from 'sonner';
+import { deals } from '../data/mockData';
 
 const DealsPage = () => {
-  const [cartCount, setCartCount] = useState(0);
-
-  // Combine deals with featured products that have discounts
-  const allDeals = [
-    ...deals,
-    ...featuredProducts.filter(p => p.discount > 10).map(p => ({
-      ...p,
-      endsIn: 'Περιορισμένη προσφορά'
-    }))
-  ];
+  // Use deals data directly
+  const allDeals = deals;
 
   return (
     <div className="min-h-screen bg-gray-50">
