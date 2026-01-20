@@ -246,6 +246,29 @@ export const matchesQuery = (text, query) => {
     if (normalizedText.includes(candidate)) {
       return true;
     }
+    // Also check if the candidate is a prefix/part of any word in the text
+    const textWords = normalizedText.split(/\s+/);
+    for (const word of textWords) {
+      if (word.startsWith(candidate) || candidate.startsWith(word.slice(0, 3))) {
+        return true;
+      }
+    }
+  }
+  
+  // Partial match: check if first N characters of any greeklish candidate match
+  // This helps with words like "thermokipio" matching "θερμοκηπια"
+  if (greekCandidates.length > 0) {
+    const primaryCandidate = greekCandidates[0];
+    // Check if at least 60% of the candidate matches the beginning of any word
+    const minMatchLength = Math.max(3, Math.floor(primaryCandidate.length * 0.6));
+    const candidatePrefix = primaryCandidate.slice(0, minMatchLength);
+    
+    const textWords = normalizedText.split(/\s+/);
+    for (const word of textWords) {
+      if (word.length >= minMatchLength && word.startsWith(candidatePrefix)) {
+        return true;
+      }
+    }
   }
   
   return false;
