@@ -1,28 +1,29 @@
 import React from 'react';
-import { MapPin, Phone, Mail, Facebook, Instagram, Youtube, CreditCard, Truck, Shield } from 'lucide-react';
+import { Link } from 'react-router-dom';
+import { MapPin, Phone, Mail, Facebook, Instagram, Youtube, Search, BarChart3, Store } from 'lucide-react';
 
 const Footer = () => {
   const footerLinks = {
-    "Αγορά μέσω agroplaza": [
-      "Πλεονεκτήματα",
-      "Ασφάλεια Αγορών",
-      "Πολιτική Επιστροφών",
-      "Τρόποι Πληρωμής"
+    "Πληροφορίες": [
+      { text: "Πώς λειτουργεί", path: "/help" },
+      { text: "Συχνές ερωτήσεις", path: "/help" },
+      { text: "Σχετικά με εμάς", path: "/help" }
     ],
-    "Συνεργάτες": [
-      "Πούλα στο agroplaza",
-      "Διαφήμιση",
-      "Για Καταστήματα"
+    "Για Καταστήματα": [
+      { text: "Γίνε συνεργάτης", path: "/help" },
+      { text: "Διαφήμιση", path: "/help" },
+      { text: "Επικοινωνία", path: "/help" }
     ],
-    "Εταιρεία": [
-      "Σχετικά με εμάς",
-      "Καριέρα",
-      "Επικοινωνία"
+    "Κατηγορίες": [
+      { text: "Σπόροι & Φυτά", path: "/category/1" },
+      { text: "Λιπάσματα", path: "/category/2" },
+      { text: "Άρδευση", path: "/category/3" },
+      { text: "Ζωοτροφές", path: "/category/4" }
     ],
     "Νομικά": [
-      "Όροι Χρήσης",
-      "Απορρήτου",
-      "Cookies"
+      { text: "Όροι Χρήσης", path: "/help" },
+      { text: "Πολιτική Απορρήτου", path: "/help" },
+      { text: "Cookies", path: "/help" }
     ]
   };
 
@@ -33,12 +34,12 @@ const Footer = () => {
         <div className="grid grid-cols-2 md:grid-cols-5 gap-8">
           {/* Logo & Info */}
           <div className="col-span-2 md:col-span-1">
-            <div className="flex items-center mb-4">
+            <Link to="/" className="flex items-center mb-4">
               <span className="text-2xl font-bold text-[#2d7a3a]">agro</span>
               <span className="text-2xl font-bold text-[#f5a623]">plaza</span>
-            </div>
+            </Link>
             <p className="text-sm text-gray-400 mb-4">
-              Ο κορυφαίος προορισμός για αγροτικά προϊόντα στην Ελλάδα.
+              Η κορυφαία πλατφόρμα σύγκρισης τιμών για αγροτικά προϊόντα στην Ελλάδα.
             </p>
             <div className="space-y-2 text-sm">
               <div className="flex items-center gap-2">
@@ -62,10 +63,10 @@ const Footer = () => {
               <h3 className="font-semibold text-white mb-4">{title}</h3>
               <ul className="space-y-2">
                 {links.map((link) => (
-                  <li key={link}>
-                    <a href="#" className="text-sm hover:text-[#2d7a3a] transition-colors">
-                      {link}
-                    </a>
+                  <li key={link.text}>
+                    <Link to={link.path} className="text-sm hover:text-[#2d7a3a] transition-colors">
+                      {link.text}
+                    </Link>
                   </li>
                 ))}
               </ul>
@@ -73,7 +74,7 @@ const Footer = () => {
           ))}
         </div>
 
-        {/* Social & Payment */}
+        {/* Features & Social */}
         <div className="mt-12 pt-8 border-t border-gray-800">
           <div className="flex flex-col md:flex-row justify-between items-center gap-4">
             {/* Social Links */}
@@ -92,19 +93,19 @@ const Footer = () => {
               </div>
             </div>
 
-            {/* Trust Badges */}
+            {/* Aggregator Features */}
             <div className="flex items-center gap-6">
               <div className="flex items-center gap-2 text-sm">
-                <CreditCard className="w-5 h-5 text-[#f5a623]" />
-                <span>Ασφαλείς Πληρωμές</span>
+                <Search className="w-5 h-5 text-[#f5a623]" />
+                <span>500+ Καταστήματα</span>
               </div>
               <div className="flex items-center gap-2 text-sm">
-                <Truck className="w-5 h-5 text-[#f5a623]" />
-                <span>Γρήγορη Αποστολή</span>
+                <BarChart3 className="w-5 h-5 text-[#f5a623]" />
+                <span>Σύγκριση Τιμών</span>
               </div>
               <div className="flex items-center gap-2 text-sm">
-                <Shield className="w-5 h-5 text-[#f5a623]" />
-                <span>Εγγύηση Ποιότητας</span>
+                <Store className="w-5 h-5 text-[#f5a623]" />
+                <span>Αξιόπιστα E-shops</span>
               </div>
             </div>
           </div>
@@ -114,7 +115,7 @@ const Footer = () => {
       {/* Copyright */}
       <div className="bg-gray-950 py-4">
         <div className="max-w-7xl mx-auto px-4 text-center text-sm text-gray-500">
-          <p>© 2025 agroplaza. Όλα τα δικαιώματα κατοχυρωμένα.</p>
+          <p>© 2025 agroplaza. Πλατφόρμα σύγκρισης τιμών - Δεν επεξεργαζόμαστε παραγγελίες ή πληρωμές.</p>
         </div>
       </div>
     </footer>
