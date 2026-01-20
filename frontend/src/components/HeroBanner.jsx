@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { Button } from './ui/button';
-import { Truck, Shield, HeadphonesIcon, CreditCard } from 'lucide-react';
+import { Search, BarChart3, Store, Tag } from 'lucide-react';
 
 const HeroBanner = () => {
   return (
@@ -23,21 +23,21 @@ const HeroBanner = () => {
           {/* Text Content */}
           <div className="flex-1 text-center md:text-left">
             <h1 className="text-3xl md:text-4xl lg:text-5xl font-bold text-white mb-4 leading-tight">
-              Ο κορυφαίος προορισμός για
+              Σύγκρινε τιμές σε
               <span className="text-[#f5a623]"> αγροτικά προϊόντα</span>
             </h1>
             <p className="text-lg text-white/80 mb-6 max-w-xl">
-              Σύγκρινε τιμές από εκατοντάδες αγροτικά καταστήματα και βρες τις καλύτερες προσφορές σε σπόρους, ζωοτροφές και εφόδια.
+              Βρες την καλύτερη τιμή από εκατοντάδες αγροτικά καταστήματα. Σπόροι, ζωοτροφές, λιπάσματα, εργαλεία - όλα σε ένα μέρος.
             </p>
             <div className="flex flex-col sm:flex-row gap-3 justify-center md:justify-start">
               <Link to="/category/1">
-                <Button className="bg-[#f5a623] hover:bg-[#e09612] text-white px-6 py-3 text-lg w-full sm:w-auto">
+                <Button className="bg-[#f5a623] hover:bg-[#e09612] text-white px-6 py-3 text-lg w-full sm:w-auto" data-testid="explore-products-btn">
                   Εξερεύνησε Προϊόντα
                 </Button>
               </Link>
-              <Link to="/sell">
-                <Button variant="outline" className="border-white text-white hover:bg-white/10 px-6 py-3 text-lg w-full sm:w-auto">
-                  Πούλα στο agroplaza
+              <Link to="/shops">
+                <Button variant="outline" className="border-white text-white hover:bg-white/10 px-6 py-3 text-lg w-full sm:w-auto" data-testid="view-shops-btn">
+                  Δες Καταστήματα
                 </Button>
               </Link>
             </div>
@@ -69,15 +69,15 @@ const HeroBanner = () => {
         </div>
       </div>
 
-      {/* Features Bar */}
+      {/* Features Bar - Aggregator focused */}
       <div className="bg-white/10 backdrop-blur-sm border-t border-white/20">
         <div className="max-w-7xl mx-auto px-4 py-4">
           <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
             {[
-              { icon: Truck, text: 'Δωρεάν Μεταφορικά από 50€', link: '/help' },
-              { icon: Shield, text: 'Εγγύηση Ασφάλειας', link: '/help' },
-              { icon: HeadphonesIcon, text: 'Υποστήριξη 24/7', link: '/help' },
-              { icon: CreditCard, text: 'Ασφαλείς Πληρωμές', link: '/help' },
+              { icon: Search, text: 'Αναζήτηση σε 500+ καταστήματα', link: '/shops' },
+              { icon: BarChart3, text: 'Σύγκριση τιμών σε πραγματικό χρόνο', link: '/deals' },
+              { icon: Store, text: 'Αξιόπιστα αγροτικά e-shops', link: '/shops' },
+              { icon: Tag, text: 'Καθημερινές προσφορές', link: '/deals' },
             ].map((feature, index) => (
               <Link key={index} to={feature.link} className="flex items-center justify-center gap-2 text-white hover:text-[#f5a623] transition-colors">
                 <feature.icon className="w-5 h-5 text-[#f5a623]" />
