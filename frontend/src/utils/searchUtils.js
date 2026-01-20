@@ -50,6 +50,11 @@ const containsGreek = (str) => {
  * Ordered by length (longer patterns first) to handle multi-character mappings correctly
  */
 const GREEKLISH_TO_GREEK = [
+  // Special common word prefixes (4+ chars)
+  { pattern: 'zootroph', greek: 'ζωοτροφ' },
+  { pattern: 'zootrop', greek: 'ζωοτροφ' },
+  { pattern: 'zootr', greek: 'ζωοτρ' },
+  
   // Multi-character mappings (3+ chars) - must come first
   { pattern: 'thi', greek: 'θι' },
   { pattern: 'the', greek: 'θε' },
@@ -64,6 +69,7 @@ const GREEKLISH_TO_GREEK = [
   { pattern: 'psa', greek: 'ψα' },
   { pattern: 'pso', greek: 'ψο' },
   { pattern: 'oou', greek: 'ου' },
+  { pattern: 'zoo', greek: 'ζω' },  // ζω- prefix (like ζωοτροφές)
   
   // Two-character mappings
   { pattern: 'th', greek: 'θ' },
