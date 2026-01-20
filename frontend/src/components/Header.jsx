@@ -13,6 +13,7 @@ const navCategories = [
   { name: 'Λιπάσματα', path: '/category/2' },
   { name: 'Θερμοκήπια', path: '/category/5' },
   { name: 'Ζωοτροφές', path: '/category/4' },
+  { name: 'Φυτοφάρμακα', path: '/category/6' },
   { name: 'Εργαλεία', path: '/category/7' }
 ];
 
@@ -150,7 +151,7 @@ const Header = () => {
           <div className="flex items-center gap-4">
             <span className="flex items-center gap-1">
               <MapPin className="w-3 h-3" />
-              Σύγκριση τιμών σε όλη την Ελλάδα
+              Αποστολή σε όλη την Ελλάδα
             </span>
           </div>
           <div className="flex items-center gap-4">
@@ -170,11 +171,11 @@ const Header = () => {
                 <span className="text-2xl font-bold text-[#2d7a3a]">agro</span>
                 <span className="text-2xl font-bold text-[#f5a623]">plaza</span>
               </div>
-              <span className="text-xs text-gray-500 hidden sm:block">σύγκριση τιμών</span>
+              <span className="text-xs text-gray-500 hidden sm:block">για τον αγρότη</span>
             </Link>
 
             {/* Search Bar with Autocomplete */}
-            <form onSubmit={handleSearch} className="flex-1 max-w-2xl" ref={searchRef}>
+            <form onSubmit={handleSearch} className="flex-1 max-w-3xl mx-4" ref={searchRef}>
               <div className="relative">
                 <Input
                   type="text"
@@ -183,7 +184,7 @@ const Header = () => {
                   onChange={handleInputChange}
                   onFocus={() => debouncedQuery.length >= 2 && setShowSuggestions(true)}
                   onKeyDown={handleKeyDown}
-                  className="w-full pl-4 pr-12 py-2 border-2 border-[#2d7a3a] rounded-full focus:ring-2 focus:ring-[#2d7a3a] focus:border-transparent"
+                  className="w-full pl-4 pr-12 py-2.5 border-2 border-[#2d7a3a] rounded-full focus:ring-2 focus:ring-[#2d7a3a] focus:border-transparent"
                   autoComplete="off"
                   data-testid="search-input"
                 />
