@@ -66,7 +66,8 @@ export const topCategories = [
   { id: 3, name: "Άρδευση", icon: "Droplets", color: "#00bcd4" },
   { id: 4, name: "Θερμοκήπια", icon: "Home", color: "#9b59b6" },
   { id: 5, name: "Ζωοτροφές", icon: "Wheat", color: "#e67e22" },
-  { id: 6, name: "Λιπάσματα", icon: "FlaskConical", color: "#3498db" }
+  { id: 6, name: "Φυτοφάρμακα", icon: "Bug", color: "#e91e63" },
+  { id: 7, name: "Λιπάσματα", icon: "FlaskConical", color: "#3498db" }
 ];
 
 // Stores/Shops data
