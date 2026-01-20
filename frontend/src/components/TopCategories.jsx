@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { Tag, Sprout, Droplets, Home, Wheat, FlaskConical } from 'lucide-react';
+import { Tag, Sprout, Droplets, Home, Wheat, FlaskConical, Bug } from 'lucide-react';
 import { topCategories, categories } from '../data/mockData';
 
 const iconMap = {
@@ -9,7 +9,8 @@ const iconMap = {
   Droplets: Droplets,
   Home: Home,
   Wheat: Wheat,
-  FlaskConical: FlaskConical
+  FlaskConical: FlaskConical,
+  Bug: Bug
 };
 
 // Map top category names to category IDs
@@ -19,7 +20,8 @@ const categoryIdMap = {
   'Άρδευση': 3,
   'Θερμοκήπια': 5,
   'Ζωοτροφές': 4,
-  'Λιπάσματα': 2
+  'Λιπάσματα': 2,
+  'Φυτοφάρμακα': 6
 };
 
 const TopCategories = () => {
