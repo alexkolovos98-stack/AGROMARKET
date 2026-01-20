@@ -196,6 +196,28 @@ export const greeklishToGreekCandidates = (query) => {
   altWithOmega = altWithOmega.replace(/PLACEHOLDER_O/g, 'ω');
   candidates.add(altWithOmega);
   
+  // Alternative with ει instead of ι for 'i' (common in Greek)
+  let altWithEi = normalizedQuery.replace(/i/g, 'ei');
+  candidates.add(greeklishToGreek(altWithEi));
+  
+  // Alternative with οι instead of ι for 'i' (also common)
+  let altWithOi = normalizedQuery.replace(/i/g, 'oi');
+  candidates.add(greeklishToGreek(altWithOi));
+  
+  // For words ending in 'es' - try 'ες' and 'ής'
+  if (normalizedQuery.endsWith('es')) {
+    const base = normalizedQuery.slice(0, -2);
+    candidates.add(greeklishToGreek(base) + 'ες');
+    candidates.add(greeklishToGreek(base) + 'ης');
+  }
+  
+  // For words ending in 'a' - common Greek endings
+  if (normalizedQuery.endsWith('a')) {
+    const base = normalizedQuery.slice(0, -1);
+    candidates.add(greeklishToGreek(base) + 'α');
+    candidates.add(greeklishToGreek(base) + 'ια');
+  }
+  
   // Filter out invalid/duplicate results
   return [...candidates].filter(c => c && c.length > 0);
 };
