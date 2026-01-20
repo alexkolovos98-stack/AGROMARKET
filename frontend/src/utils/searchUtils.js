@@ -54,12 +54,16 @@ const GREEKLISH_TO_GREEK = [
   { pattern: 'thi', greek: 'θι' },
   { pattern: 'the', greek: 'θε' },
   { pattern: 'tha', greek: 'θα' },
+  { pattern: 'tho', greek: 'θο' },
   { pattern: 'chi', greek: 'χι' },
   { pattern: 'che', greek: 'χε' },
   { pattern: 'cha', greek: 'χα' },
+  { pattern: 'cho', greek: 'χο' },
   { pattern: 'psi', greek: 'ψι' },
   { pattern: 'pse', greek: 'ψε' },
   { pattern: 'psa', greek: 'ψα' },
+  { pattern: 'pso', greek: 'ψο' },
+  { pattern: 'oou', greek: 'ου' },
   
   // Two-character mappings
   { pattern: 'th', greek: 'θ' },
@@ -72,6 +76,7 @@ const GREEKLISH_TO_GREEK = [
   { pattern: 'nt', greek: 'ντ' },
   { pattern: 'gk', greek: 'γκ' },
   { pattern: 'ou', greek: 'ου' },
+  { pattern: 'oo', greek: 'ου' },
   { pattern: 'ai', greek: 'αι' },
   { pattern: 'ei', greek: 'ει' },
   { pattern: 'oi', greek: 'οι' },
@@ -82,6 +87,8 @@ const GREEKLISH_TO_GREEK = [
   { pattern: 'ef', greek: 'εφ' },  // Alternative for ευ before consonants
   { pattern: 'av', greek: 'αβ' },  // Alternative for αυ before vowels
   { pattern: 'ev', greek: 'εβ' },  // Alternative for ευ before vowels
+  { pattern: 'ki', greek: 'κι' },
+  { pattern: 'pi', greek: 'πι' },
   
   // Single character mappings
   { pattern: 'a', greek: 'α' },
