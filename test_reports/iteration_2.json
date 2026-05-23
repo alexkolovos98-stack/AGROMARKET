@@ -1,0 +1,42 @@
+{
+  "summary": "Full E2E backend + frontend testing for Agroplaza after mockData removal & API integration rewrite. 23/23 backend pytest tests pass. All major frontend flows (homepage, category, product, search, shops, login, signup, protected route, merchant dashboard/store/products/xml-feed/billing) load correctly and integrate with the backend.",
+  "backend_issues": {
+    "critical": [],
+    "minor": [
+      {"endpoint": "/api/auth/signup", "issue": "Email is silently lowercased on signup; user.email returned differs in case from request body. Minor — but undocumented."}
+    ]
+  },
+  "frontend_issues": {
+    "ui_bugs": [],
+    "integration_issues": [
+      {"flow": "All pages on unauthenticated load", "issue": "GET /api/auth/me is called unconditionally even when no session_token exists, producing a 401 in console on every page render. Consider skipping the call when localStorage.session_token is null and no auth cookie is present.", "affected_selectors": []}
+    ],
+    "design_issues": []
+  },
+  "test_report_links": [
+    "/app/backend/tests/test_api.py",
+    "/app/test_reports/pytest/pytest_results.xml"
+  ],
+  "action_items": [
+    "(Optional) In AuthContext.jsx, skip authMe() call when no session_token in localStorage and no cookie to remove harmless but noisy 401s in console.",
+    "(Optional) Seed sample products for the test merchant so /merchant/products empty-state can be visually verified beyond an empty list.",
+    "Reconcile /app/memory/test_credentials.md vs /app/auth_testing.md (the latter shows password 'Test1234!' while credentials.md says 'password'). The seeded merchant hash was previously 'Test1234!'; testing agent updated the seeded merchant password_hash in MongoDB to match the documented 'password'. Main agent should update /app/backend/seed.py (or seeder logic) so re-seeds reproduce 'password' deterministically."
+  ],
+  "critical_code_review_comments": [
+    "/app/backend/seed.py does NOT create the merchant test account (merchant@test.gr). The seeded merchant account exists in DB but the seed script doesn't reproduce it — re-running seed will not restore it. Add idempotent merchant user upsert in seed.py.",
+    "/app/frontend/src/data/mockData.js still present after the rewrite — should be deleted or moved to fixtures since all consumers now use api/client.js.",
+    "/app/frontend/src/pages/LoginPage.jsx hard-codes Google auth URL to 'https://auth.emergentagent.com/?redirect=...' which is fine, but the same flow has no error message UI for Google sign-in failure.",
+    "client.js: every page hits /api/auth/me even for anonymous visitors, generating 401 noise. Use a guard in AuthContext."
+  ],
+  "updated_files": [
+    "/app/backend/tests/test_api.py (created — 23 tests covering catalog, search, auth, merchant, billing, tracking)",
+    "MongoDB: db.users.password_hash for merchant@test.gr updated to bcrypt('password') to match /app/memory/test_credentials.md"
+  ],
+  "success_rate": {"backend": "100% (23/23 pytest)", "frontend": "100% of tested flows"},
+  "test_credentials": "merchant@test.gr / password (verified working). Hash in DB was Test1234! — testing agent reset to 'password' to match credentials doc.",
+  "seed_data_creation": "Updated merchant@test.gr password hash to 'password' in MongoDB (test_database.users). No other seed changes.",
+  "retest_needed": false,
+  "should_main_agent_self_test": true,
+  "context_for_next_testing_agent": "Backend pytest suite is at /app/backend/tests/test_api.py — re-runnable. Greek search, Greeklish ('sporoi' -> σπόροι), and accent-insensitive search all confirmed working at backend level. Merchant flow: login at /login with merchant@test.gr/password redirects to /merchant/dashboard with stats + recharts. Note: /merchant/products list is empty for the test merchant (no products seeded for that store_id); not a bug, just empty data. The 401 console errors on every page are from AuthContext calling /api/auth/me without checking for a token first.",
+  "rca_of_the_issue": "Auth login failure RCA: test_credentials.md documents 'password' but the seed/legacy hash in MongoDB was bcrypt('Test1234!') — a stale value left over from /app/auth_testing.md. Fix applied: directly updated merchant@test.gr.password_hash via mongosh to bcrypt('password'). Permanent fix: seed.py should idempotently upsert the test merchant user with the documented password."
+}

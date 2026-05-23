@@ -1,25 +1,28 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { Star, MapPin, Package, ChevronRight, Search } from 'lucide-react';
 import { Input } from '../components/ui/input';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
-import { shops } from '../data/mockData';
+import { fetchStores } from '../api/client';
 
 const ShopsListPage = () => {
-  const [searchQuery, setSearchQuery] = useState('');
+  const [shops, setShops] = useState([]);
+  const [q, setQ] = useState('');
 
-  const filteredShops = shops.filter(shop => 
-    shop.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
-    shop.location.toLowerCase().includes(searchQuery.toLowerCase())
-  );
+  useEffect(() => {
+    fetchStores().then(setShops).catch(() => setShops([]));
+  }, []);
+
+  const ql = q.toLowerCase();
+  const filtered = ql
+    ? shops.filter(s => s.name.toLowerCase().includes(ql) || s.location.toLowerCase().includes(ql))
+    : shops;
 
   return (
     <div className="min-h-screen bg-gray-50">
       <Header />
-      
       <main className="max-w-7xl mx-auto px-4 py-6">
-        {/* Breadcrumb */}
         <nav className="flex items-center gap-2 text-sm text-gray-500 mb-6">
           <Link to="/" className="hover:text-[#2d7a3a]">Αρχική</Link>
           <ChevronRight className="w-4 h-4" />
@@ -30,17 +33,12 @@ const ShopsListPage = () => {
           <h1 className="text-2xl font-bold text-gray-900">Όλα τα Καταστήματα</h1>
           <div className="relative w-full md:w-72">
             <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-400" />
-            <Input
-              placeholder="Αναζήτηση καταστήματος..."
-              className="pl-10"
-              value={searchQuery}
-              onChange={(e) => setSearchQuery(e.target.value)}
-            />
+            <Input placeholder="Αναζήτηση καταστήματος..." className="pl-10" value={q} onChange={(e) => setQ(e.target.value)} />
           </div>
         </div>
 
-        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
-          {filteredShops.map((shop) => (
+        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4" data-testid="shops-list">
+          {filtered.map((shop) => (
             <Link
               key={shop.id}
               to={`/shop/${encodeURIComponent(shop.name)}`}
@@ -68,7 +66,6 @@ const ShopsListPage = () => {
           ))}
         </div>
       </main>
-
       <Footer />
     </div>
   );
