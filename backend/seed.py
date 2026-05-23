@@ -13,6 +13,15 @@ load_dotenv(Path(__file__).parent / '.env')
 
 from motor.motor_asyncio import AsyncIOMotorClient
 from utils.search_utils import build_search_text
+from utils.auth_utils import hash_password
+
+
+TEST_MERCHANT = {
+    "email": "merchant@test.gr",
+    "password": "password",
+    "name": "Test Merchant",
+    "linked_store_id": 1,  # ΑγροΤεχνική ΕΠΕ — has offers on products 1,2,3,4,5,7,8
+}
 
 
 CATEGORIES = [
@@ -239,6 +248,43 @@ async def seed():
 
     print("[seed] Manufacturers...")
     await db.manufacturers.insert_many([dict(m) for m in MANUFACTURERS])
+
+    # Idempotent test merchant user + link to store_id=1 so dashboard has data
+    print("[seed] Upserting test merchant user...")
+    existing = await db.users.find_one({'email': TEST_MERCHANT['email']}, {'_id': 0})
+    if existing:
+        merchant_user_id = existing['user_id']
+        await db.users.update_one(
+            {'user_id': merchant_user_id},
+            {'$set': {
+                'password_hash': hash_password(TEST_MERCHANT['password']),
+                'auth_provider': 'password',
+                'role': 'merchant',
+                'name': TEST_MERCHANT['name'],
+                'failed_login_attempts': 0,
+                'lockout_until': None,
+            }}
+        )
+    else:
+        merchant_user_id = f"user_{uuid.uuid4().hex[:12]}"
+        await db.users.insert_one({
+            'user_id': merchant_user_id,
+            'email': TEST_MERCHANT['email'],
+            'name': TEST_MERCHANT['name'],
+            'role': 'merchant',
+            'auth_provider': 'password',
+            'password_hash': hash_password(TEST_MERCHANT['password']),
+            'failed_login_attempts': 0,
+            'lockout_until': None,
+            'picture': None,
+            'created_at': datetime.now(timezone.utc).isoformat(),
+        })
+    # Link store_id=1 to this merchant (gives them ~7 products visible in dashboard)
+    await db.stores.update_one(
+        {'store_id': TEST_MERCHANT['linked_store_id']},
+        {'$set': {'owner_user_id': merchant_user_id}}
+    )
+    print(f"[seed] Test merchant ready: {TEST_MERCHANT['email']} / {TEST_MERCHANT['password']} -> store {TEST_MERCHANT['linked_store_id']}")
 
     # Indexes
     print("[seed] Creating indexes...")

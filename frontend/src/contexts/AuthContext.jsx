@@ -25,6 +25,15 @@ export const AuthProvider = ({ children }) => {
       setLoading(false);
       return;
     }
+    // Skip /me when there's no local session token AND no auth cookie present.
+    // Avoids noisy 401s on every anonymous page load.
+    const hasToken = !!localStorage.getItem('session_token');
+    const hasCookie = typeof document !== 'undefined' &&
+      document.cookie.split(';').some((c) => c.trim().startsWith('session_token='));
+    if (!hasToken && !hasCookie) {
+      setLoading(false);
+      return;
+    }
     checkAuth();
   }, [checkAuth]);
 
