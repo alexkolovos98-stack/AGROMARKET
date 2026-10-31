@@ -58,3 +58,7 @@ Working on AGROPLAZA helped me understand the importance of clearly defining a p
 It also highlighted the value of competitor research, testing assumptions and collecting feedback from potential users.
 
 Although the project remains unfinished, it represents my interest in combining agriculture, business thinking and technology.
+
+## Language
+
+The prototype was designed in Greek because its target audience is farmers in Greece. An English version was not part of the initial project scope.
