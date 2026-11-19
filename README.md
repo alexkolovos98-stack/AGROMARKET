@@ -62,3 +62,12 @@ Although the project remains unfinished, it represents my interest in combining 
 ## Language
 
 The prototype was designed in Greek because its target audience is farmers in Greece. An English version was not part of the initial project scope.
+
+## Possible Next Steps
+
+Before developing the platform further, I would like to:
+
+- Research existing agricultural price comparison platforms and potential competitors.
+- Collect feedback from farmers to better understand their needs.
+- Explore how real product prices could be collected and updated from suppliers.
+- Evaluate whether the platform could offer a useful and practical solution for farmers.
